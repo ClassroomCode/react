@@ -1,5 +1,9 @@
+export interface JumbotronProps {
+  title: string,
+  description: string
+}
 
-export function Jumbotron(props: any) {
+export function Jumbotron(props: JumbotronProps) {
   return (
     <div className="jumbotron">
       <div className="container">
