@@ -1,2 +1,1 @@
-# react
-Introduction to React using TypeScript
+# Introduction to React using TypeScript
