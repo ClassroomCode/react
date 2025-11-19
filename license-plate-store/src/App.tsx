@@ -2,7 +2,7 @@ import './App.css'
 import { Jumbotron } from './jumbotron/Jumbotron';
 import { LicensePlate } from './license-plate/LicensePlate';
 import { Navigation } from './navigation/Navigation';
-import { CALIFORNIA_PLATE, LICENSE_PLATES } from './mock-data';
+import { LICENSE_PLATES } from './mock-data';
 
 function App() {
   return (  
@@ -13,10 +13,11 @@ function App() {
           description="Browse our collection of License Plates below" />
         <div className="container" >
           <div className="row" >
-            <div className="col-md-4">
-              <LicensePlate plate={CALIFORNIA_PLATE} 
-                            buttonText="Add to cart"/>    
-            </div>
+            {LICENSE_PLATES.map((licensePlate) => (
+              <div key={licensePlate._id} className="col-md-4 license-plate">
+                <LicensePlate plate={licensePlate} buttonText="Add to cart"/>    
+              </div>
+            )) }
           </div>
         </div>
       </main>
