@@ -1,6 +1,11 @@
+import saleIcon from '../assets/sale.png' 
 
 const buttonClicked = () => {
   alert("Plate added to cart");
+}
+
+export function NoLicensePlates() {
+  return <h2>No license plates</h2>
 }
 
 export function LicensePlate(props: any) {
@@ -9,7 +14,7 @@ export function LicensePlate(props: any) {
 
     return (
       <>
-        <h2>{plate.title}</h2>
+        <h2>{plate.title}{plate.onSale && <img src={saleIcon}/>}</h2>
         <img src={plate.picture} className="img-fluid" />
         <p>{plate.description}</p>
         <div>
