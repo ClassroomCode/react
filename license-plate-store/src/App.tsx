@@ -2,11 +2,18 @@ import './App.css'
 import { Jumbotron } from './jumbotron/Jumbotron';
 import { LicensePlate, NoLicensePlates } from './license-plate/LicensePlate';
 import { Navigation } from './navigation/Navigation';
-import { LICENSE_PLATES } from './mock-data';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { PromoBanner } from './promo-banner/PromoBanner';
+import { Spinner } from './spinner/Spinner';
 
 function App() {
-  const [licensePlates, setPlates] = useState(LICENSE_PLATES);
+  const [licensePlates, setPlates] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:8000/data')
+      .then(response => response.json())
+      .then(data => setPlates(data));
+  }, []);
 
   return (  
     <div>
@@ -14,15 +21,20 @@ function App() {
       <main>
         <Jumbotron title="Welcome to our store" 
           description="Browse our collection of License Plates below" />
+        <PromoBanner/>
         <div className="container" >
-          <div className="row" >
-            { licensePlates.length == 0 && <NoLicensePlates/> }
-            {licensePlates.map((licensePlate) => (
-              <div key={licensePlate._id} className="col-md-4 license-plate">
-                <LicensePlate plate={licensePlate} buttonText="Add to cart"/>    
-              </div>
-            )) }
-          </div>
+          { licensePlates.length > 0 ? 
+            <div className="row" >
+              { licensePlates.length == 0 && <NoLicensePlates/> }
+              {licensePlates.map((licensePlate) => (
+                <div key={licensePlate._id} className="col-md-4 license-plate">
+                  <LicensePlate plate={licensePlate} buttonText="Add to cart"/>    
+                </div>
+              )) }
+            </div>
+          :
+            <Spinner/>
+          }
         </div>
       </main>
     </div>
