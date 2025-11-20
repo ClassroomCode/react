@@ -1,33 +1,38 @@
 import './App.css'
-import { Jumbotron } from './jumbotron/Jumbotron';
-import { LicensePlate, NoLicensePlates } from './license-plate/LicensePlate';
 import { Navigation } from './navigation/Navigation';
-import { useEffect, useState } from 'react';
-import { PromoBanner } from './promo-banner/PromoBanner';
-import { Spinner } from './spinner/Spinner';
-import { CheckoutForm } from './checkout-form/CheckoutForm';
+import { createContext, useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { StoreView } from './store-view/StoreView';
 import { CheckoutView } from './checkout-view/CheckoutView';
 import { CartView } from './cart-view/CartView';
+import type { Currency } from './license-plate-data.type';
+
+export interface AppContext {
+  currency: Currency,
+  updateCurrency: (c: Currency) => void,
+};
+
+export const MyContext = createContext<AppContext>({currency: "USD", updateCurrency: () => {}}); 
 
 function App() {
 
-  const [currency, setCurrency] = useState('USD');
+  const [currency, updateCurrency] = useState<Currency>('USD');
 
   return (  
-    <div>
-      <BrowserRouter>
-        <Navigation onCurrencyChange={setCurrency} currency={currency} />
-        <main>
-          <Routes>
-            <Route path="/" element={<StoreView/>}/>
-            <Route path="/cart" element={<CartView />} />
-            <Route path="/checkout" element={<CheckoutView />} />
-          </Routes>
-        </main>
-      </BrowserRouter>
-    </div>
+    <MyContext.Provider value={{currency, updateCurrency}}>
+      <div>
+        <BrowserRouter>
+          <Navigation />
+          <main>
+            <Routes>
+              <Route path="/" element={<StoreView currency={currency} />}/>
+              <Route path="/cart" element={<CartView />} />
+              <Route path="/checkout" element={<CheckoutView />} />
+            </Routes>
+          </main>
+        </BrowserRouter>
+      </div>
+    </MyContext.Provider>
   );
 }
 

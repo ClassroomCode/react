@@ -1,29 +1,33 @@
 import { useState } from "react";
 import type { Currency } from "../license-plate-data.type";
+import React from "react";
+import { MyContext, type AppContext } from "../App";
 
 export interface CurrencyDropdownProps {
   currency: Currency;
   onCurrencyChange: (newCurrency: Currency) => void
 }
 
-export function CurrencyDropdown(props: CurrencyDropdownProps) {
+export function CurrencyDropdown() {
 
 	let [showItems, setShowItems] = useState(false);
+
+	const { currency, updateCurrency } = React.useContext<AppContext>(MyContext);
 
 	return (
 		<div className="btn-group margin10">
 			<button type="button" onClick={() => setShowItems(true)}
 				className="btn btn-info dropdown-toggle" data-toggle="dropdown">
-				{props.currency}
+				{currency}
 			</button>
 			<div className={showItems? "dropdown-menu show" : "dropdown-menu"}>
-				<a className="dropdown-item" onClick={() => { setShowItems(false); props.onCurrencyChange('USD');}}>
+				<a className="dropdown-item" onClick={() => { setShowItems(false); updateCurrency('USD');}}>
 					USD ($)
 				</a>
-				<a className="dropdown-item" onClick={() => { setShowItems(false); props.onCurrencyChange('EUR');}}>
+				<a className="dropdown-item" onClick={() => { setShowItems(false); updateCurrency('EUR');}}>
 					EUR (€)
 				</a>
-				<a className="dropdown-item" onClick={() => { setShowItems(false); props.onCurrencyChange('GBP');}}>
+				<a className="dropdown-item" onClick={() => { setShowItems(false); updateCurrency('GBP');}}>
 					GBP (£)
 				</a>
 			</div>

@@ -1,5 +1,7 @@
 import saleIcon from '../assets/sale.png' 
 
+const CURRENCIES: Record<string, string> = {EUR: "€", USD: "$", GBP: "£"};
+
 const buttonClicked = () => {
   alert("Plate added to cart");
 }
@@ -18,7 +20,7 @@ export function LicensePlate(props: any) {
         <img src={plate.picture} className="img-fluid" />
         <p>{plate.description}</p>
         <div>
-          <h2 className="float-left">${plate.price}</h2>
+          <h2 className="float-left">{CURRENCIES[props.currency]} {plate.price}</h2>
           <button className="btn btn-primary float-right" role="button" onClick={buttonClicked}>
             {buttonText}
           </button>
