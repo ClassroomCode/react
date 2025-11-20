@@ -6,39 +6,25 @@ import { useEffect, useState } from 'react';
 import { PromoBanner } from './promo-banner/PromoBanner';
 import { Spinner } from './spinner/Spinner';
 import { CheckoutForm } from './checkout-form/CheckoutForm';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { StoreView } from './store-view/StoreView';
+import { CheckoutView } from './checkout-view/CheckoutView';
+import { CartView } from './cart-view/CartView';
 
 function App() {
-  const [licensePlates, setPlates] = useState([]);
-
-  useEffect(() => {
-    fetch('http://localhost:8000/data')
-      .then(response => response.json())
-      .then(data => setPlates(data));
-  }, []);
 
   return (  
     <div>
-      <Navigation/>
-      <main>
-        <Jumbotron title="Welcome to our store" 
-          description="Browse our collection of License Plates below" />
-        <CheckoutForm/>
-        <PromoBanner/>
-        <div className="container" >
-          { licensePlates.length > 0 ? 
-            <div className="row" >
-              { licensePlates.length == 0 && <NoLicensePlates/> }
-              {licensePlates.map((licensePlate: any) => (
-                <div key={licensePlate._id} className="col-md-4 license-plate">
-                  <LicensePlate plate={licensePlate} buttonText="Add to cart"/>    
-                </div>
-              )) }
-            </div>
-          :
-            <Spinner/>
-          }
-        </div>
-      </main>
+      <BrowserRouter>
+        <Navigation/>
+        <main>
+          <Routes>
+            <Route path="/" element={<StoreView/>}/>
+            <Route path="/cart" element={<CartView />} />
+            <Route path="/checkout" element={<CheckoutView />} />
+          </Routes>
+        </main>
+      </BrowserRouter>
     </div>
   );
 }

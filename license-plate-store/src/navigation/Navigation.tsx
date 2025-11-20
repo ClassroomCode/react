@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { CurrencyDropdown } from "../currency/CurrencyDropdown";
 
 export function Navigation() {
@@ -11,13 +12,13 @@ export function Navigation() {
       <div className="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul className="navbar-nav mr-auto">
           <li className="nav-item">
-            <a className="nav-link">Home <span className="sr-only">(current)</span></a>
+            <Link to="/" className="nav-link">Home</Link>
           </li>
           <li className="nav-item">
-            <a className="nav-link">Cart <span className="sr-only"></span></a>
+            <Link to="/cart" className="nav-link">Cart</Link>
           </li>
           <li className="nav-item">
-            <a className="nav-link">Checkout <span className="sr-only"></span></a>
+            <Link to="/checkout" className="nav-link">Checkout</Link>
           </li>
         </ul>
         <CurrencyDropdown />
