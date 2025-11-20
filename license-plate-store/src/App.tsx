@@ -13,10 +13,12 @@ import { CartView } from './cart-view/CartView';
 
 function App() {
 
+  const [currency, setCurrency] = useState('USD');
+
   return (  
     <div>
       <BrowserRouter>
-        <Navigation/>
+        <Navigation onCurrencyChange={setCurrency} currency={currency} />
         <main>
           <Routes>
             <Route path="/" element={<StoreView/>}/>

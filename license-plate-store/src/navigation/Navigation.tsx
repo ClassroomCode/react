@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { CurrencyDropdown } from "../currency/CurrencyDropdown";
 
-export function Navigation() {
+export function Navigation(props: any) {
   return (
     <nav className="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
       <a className="navbar-brand" href="#">License Plate Store</a>
@@ -21,7 +21,7 @@ export function Navigation() {
             <Link to="/checkout" className="nav-link">Checkout</Link>
           </li>
         </ul>
-        <CurrencyDropdown />
+        <CurrencyDropdown onCurrencyChange={props.onCurrencyChange} currency={props.currency} />
         <form className="form-inline my-2 my-lg-0">
           <input className="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search"/>
           <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
