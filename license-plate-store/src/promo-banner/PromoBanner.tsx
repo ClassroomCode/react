@@ -7,7 +7,7 @@ const SECS_IN_HOUR = 60 * 60;
 export function PromoBanner() {
 
     // Promo is on for 24 hours initially
-    const [timeLeft, setTimeLeft] = useState(5);
+    const [timeLeft, setTimeLeft] = useState(SECS_IN_DAY);
     const [saleOver, setSaleOver] = useState(false);
 
     useEffect(() => {
